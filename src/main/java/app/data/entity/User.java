@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import org.apache.commons.lang3.RandomStringUtils;
 
 
@@ -40,14 +41,14 @@ public class User {
 
         @Override
         public String convertToDatabaseColumn(Unique input) {
-            return new AES256().decrypt(input.uuid);
+            return input.iv + new AES256().decrypt(input.uuid, input.iv);
 
         }
 
         @Override
         public Unique convertToEntityAttribute(String db) {
 
-            return new Unique("abc", db.substring(0,16));
+            return Unique.builder().uuid(new AES256().encrypt(db.substring(16), db.substring(0,16))).iv(db.substring(0,16)).build();
 
         }
 
@@ -56,6 +57,9 @@ public class User {
 
     @PrePersist
     void preInsert(){
-        this.unique = new Unique(new AES256().encrypt(UUID.randomUUID().toString().replaceAll("-","")), RandomStringUtils.randomNumeric(16).toString());
+
+        String iv = RandomStringUtils.randomAlphanumeric(16);
+
+        this.unique = new Unique(new AES256().encrypt(UUID.randomUUID().toString().replaceAll("-",""), iv), iv);
     }
 }

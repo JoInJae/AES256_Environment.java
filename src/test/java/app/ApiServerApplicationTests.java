@@ -13,8 +13,6 @@ class ApiServerApplicationTests {
 	@Test
 	void contextLoads() {
 
-		String en = new AES256().encrypt(UUID.randomUUID().toString().replaceAll("-",""));
-
 	}
 
 }
