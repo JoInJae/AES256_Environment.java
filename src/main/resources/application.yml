@@ -1,0 +1,17 @@
+spring:
+  jpa:
+    open-in-view: true
+    show-sql: true
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.MariaDB103Dialect
+    database: sql_server
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  datasource:
+    url:  jdbc:mariadb://super-brain-db.c2rbzfa0saqk.ap-northeast-2.rds.amazonaws.com:3306/WonJu?characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Seoul&amp&allowPublicKeyRetrieval=true&useSSL=false
+    password: rowan0810
+    username: admin
+    driver-class-name: org.mariadb.jdbc.Driver
+server:
+  port: 5000
