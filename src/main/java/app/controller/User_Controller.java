@@ -1,30 +1,37 @@
 package app.controller;
 
-import app.data.entity.User;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import app.controller.basement.Controller_Abstract;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
+import app.data.request.UserDTO;
+import app.service.User_Service;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 
 @RequestMapping(value = "/user", method = RequestMethod.POST)
 @RestController
-public class User_Controller{
+public class User_Controller extends Controller_Abstract<User_Service> {
 
-    @PersistenceContext
-    public EntityManager em;
+    protected User_Controller(User_Service user_service) {
+        super(user_service);
+    }
 
-    @Transactional
-    @PostMapping("/insert")
-    public void insert(){
+    @PostMapping("/put")
+    public void user_put(@RequestBody UserDTO.Input param){
 
-        User user = new User();
-        em.persist(user);
+        service.user_put(param);
 
     }
+
+    @PostMapping("/check")
+    public ResponseEntity user_check(@RequestBody UserDTO.Input param){
+
+
+        return ResponseEntity.ok("abc");
+
+    }
+
+
 
 
 }

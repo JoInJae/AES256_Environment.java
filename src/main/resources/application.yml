@@ -15,3 +15,8 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
 server:
   port: 5000
+aes256:
+  iv: HCGyCG84ZY67dHLlizZMdA==
+  private-key: fi/BUG7DrhFhNCTIx7l1nSuO5Q3M37dHYx/Ws0uan48=
+jwt:
+  private-key: 5zsOdCUk38l22Xh33I2PJZkqeQIPPdVrmButveQ/WzYd/PTQ3c3isM78cpCc5goTfYYist6rhEBK9pZhNXCKDV6ubfyaQHfDjfOE1/dmvZOhyomn5+Zmqaqp2i5B5LkfAi+vQSIgPkG3oN4KdGwyXyFaVsTAqGskTxV3kvnbn9g=
