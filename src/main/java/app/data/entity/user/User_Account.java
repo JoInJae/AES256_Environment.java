@@ -58,4 +58,16 @@ public class User_Account  extends Entity_Detail {
         this.is_active = 1L;
     }
 
+    public boolean match(String input){
+
+        String origin_password, input_password, salt;
+
+        origin_password = hashing_password.substring(0, hashing_password.length() - 12);
+        salt = hashing_password.substring(hashing_password.length() - 12);
+        input_password = Hashing.sha256().hashString(input + salt, StandardCharsets.UTF_8).toString();
+
+        return origin_password.equals(input_password);
+
+    }
+
 }

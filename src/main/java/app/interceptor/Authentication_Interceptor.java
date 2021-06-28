@@ -8,6 +8,7 @@ import app.utility.JWT;
 
 import io.jsonwebtoken.Claims;
 
+import lombok.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -29,42 +30,37 @@ public class Authentication_Interceptor implements HandlerInterceptor {
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
 
         String authorization = request.getHeader("Authorization");
 
-        if(authorization == null || !(authorization.startsWith("Bearer "))){
-            throw new InvalidAuthorizationException();
-        }
+        if(authorization == null || !(authorization.startsWith("Bearer "))) throw new InvalidAuthorizationException();
 
         String token = authorization.replace("Bearer ","");
 
         Claims claims = jwt.get(token);
 
-        if(claims.getExpiration().after(new Date())){
-            throw new InvalidAuthorizationException();
-        }
+        if(claims.getExpiration().before(new Date())) throw new InvalidAuthorizationException();
 
-        Optional<User_Account> is_user_account = user_repository.user_account_get((String)claims.get("uuid"));
+        String uuid = (String)claims.get("uuid");
 
-        if(is_user_account.isEmpty()){
-            throw new InvalidAuthorizationException();
-        }
+        Optional<User_Account> is_user_account = user_repository.user_account_get(uuid);
 
-        switch ((Token)claims.get("type")){
+        if(is_user_account.isEmpty()) throw new InvalidAuthorizationException();
+
+        switch (Token.valueOf((String)claims.get("type"))){
             case ACCESS:
-                break;
+                    request.setAttribute("uuid", uuid);
+                    return true;
             case REFRESH:
                     if(is_user_account.get().getRefresh().equals(token)){
-                        request.setAttribute("access", jwt.create(Token.ACCESS, (String)claims.get("uuid")));
+                        request.setAttribute("access", jwt.create(Token.ACCESS, uuid));
                         return true;
                     }else{
                         throw new InvalidAuthorizationException();
                     }
             default: throw new InvalidAuthorizationException();
         }
-
-        return true;
 
     }
 

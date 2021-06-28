@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Date;
+
 
 @SpringBootTest
 class ApiServerApplicationTests {
@@ -15,7 +17,10 @@ class ApiServerApplicationTests {
 
 	@Test
 	void contextLoads() {
-		System.out.println(Token.valueOf(Token.ACCESS.name()));
+
+		Date after = new Date(System.currentTimeMillis() + 1000L);
+		Date now = new Date();
+		System.out.println(after.before(now));
 	}
 
 }

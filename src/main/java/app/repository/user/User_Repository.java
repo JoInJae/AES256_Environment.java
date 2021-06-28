@@ -42,8 +42,25 @@ public class User_Repository extends Repository_Abstract {
 
         User_Account user_account = query.selectFrom(qUser_Account).where(qUser_Account.user.uuid.eq(uuid)).fetchFirst();
 
-        return user_account != null ? Optional.of(user_account) : Optional.empty();
+        return (user_account != null) ? Optional.of(user_account) : Optional.empty();
 
     }
 
+    public Boolean exist_id(String id) {
+
+        return query.selectOne().from(qUser_Account).where(qUser_Account.id.eq(id)).fetchFirst() != null;
+
+    }
+
+    public Optional<User_Account> user_account_get_by_id(String id) {
+
+        User_Account user_account = query.selectFrom(qUser_Account).leftJoin(qUser_Account.user, qUser).fetchJoin().where(qUser_Account.id.eq(id)).fetchFirst();
+
+        return (user_account != null) ? Optional.of(user_account) : Optional.empty();
+
+    }
+
+    public Long token_update(User_Account user_account, String refresh) {
+        return query.update(qUser_Account).set(qUser_Account.refresh, refresh).where(qUser_Account.eq(user_account)).execute();
+    }
 }

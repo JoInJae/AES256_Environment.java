@@ -3,6 +3,9 @@ package app.data.request;
 import app.data.entity.type.Gender;
 import app.data.entity.user.User;
 import app.data.entity.user.User_Account;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 public class UserDTO {
@@ -27,6 +30,36 @@ public class UserDTO {
             return User_Account.builder().user(user).id(id).password(password).build();
         }
 
+    }
+
+    @Getter
+    public static class ID_Check{
+
+        private String id;
+
+    }
+
+    @Getter
+    public static class Login_Check{
+
+        private String id;
+        private String password;
+
+    }
+
+    @AllArgsConstructor
+    @Builder
+    @Getter
+    public static class Login_Check_Result{
+        private String access;
+        private String refresh;
+    }
+
+    @AllArgsConstructor
+    @Builder
+    @Getter
+    public static class Reissue_Result{
+        private String access;
     }
 
 }

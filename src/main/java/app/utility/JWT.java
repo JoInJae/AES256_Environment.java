@@ -27,10 +27,11 @@ public class JWT {
 
     public String create(Token type, String uuid){
 
-        Map<String, Object> claims = new HashMap<>(){
+        Map<String, String> claims = new HashMap<>(){
+            private static final long serialVersionUID = 8812712777761754913L;
             {
                 put("uuid", uuid);
-                put("type", type);
+                put("type", type.name());
             }
         };
 
