@@ -1,6 +1,6 @@
 package app.controller;
 
-import app.controller.basement.Controller_Abstract;
+import app.controller.basement.Base_Controller;
 
 import app.data.request.UserDTO;
 import app.service.User_Service;
@@ -8,10 +8,12 @@ import app.service.User_Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+
 
 @RequestMapping(value = "/user", method = RequestMethod.POST)
 @RestController
-public class User_Controller extends Controller_Abstract<User_Service> {
+public class User_Controller extends Base_Controller<User_Service> {
 
     protected User_Controller(User_Service user_service) {
         super(user_service);
@@ -32,7 +34,7 @@ public class User_Controller extends Controller_Abstract<User_Service> {
     }
 
     @PostMapping("/login/check")
-    public ResponseEntity<UserDTO.Login_Check_Result> user_login_check(@RequestBody UserDTO.Login_Check param){
+    public ResponseEntity<UserDTO.Login_Check_Result> user_login_check(@RequestBody UserDTO.Login_Check param, HttpServletResponse response){
 
         return ResponseEntity.ok(service.user_login_check(param));
 

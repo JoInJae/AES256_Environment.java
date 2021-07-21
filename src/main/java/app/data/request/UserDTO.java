@@ -1,8 +1,8 @@
 package app.data.request;
 
-import app.data.entity.type.Gender;
-import app.data.entity.user.User;
-import app.data.entity.user.User_Account;
+import app.data.request.type.Gender;
+import app.data.entity.User;
+import app.data.entity.User_Account;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,6 +47,7 @@ public class UserDTO {
 
     }
 
+
     @AllArgsConstructor
     @Builder
     @Getter
@@ -54,6 +55,7 @@ public class UserDTO {
         private String access;
         private String refresh;
     }
+
 
     @AllArgsConstructor
     @Builder

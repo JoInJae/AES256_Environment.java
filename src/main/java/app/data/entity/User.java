@@ -1,15 +1,14 @@
-package app.data.entity.user;
+package app.data.entity;
 
 import app.data.entity.basement.Entity_Main;
-import app.data.entity.type.Gender;
-
+import app.data.request.type.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
-
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity@Table(name = "USER")
 @Getter@NoArgsConstructor
@@ -36,6 +35,9 @@ public class User extends Entity_Main {
 
     @Column(name = "education", columnDefinition = "INT(2)", nullable = false)
     private Long education;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<Log> logs = new LinkedHashSet<>();
 
     @Builder
     public User(String name, Gender gender,String year, String month, String date, Long education) {

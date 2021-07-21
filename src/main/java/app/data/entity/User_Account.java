@@ -1,4 +1,4 @@
-package app.data.entity.user;
+package app.data.entity;
 
 import app.data.entity.basement.Entity_Detail;
 

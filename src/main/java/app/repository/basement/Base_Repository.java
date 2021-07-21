@@ -2,11 +2,11 @@ package app.repository.basement;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
-public abstract class Repository_Abstract {
+public abstract class Base_Repository {
 
     protected final JPAQueryFactory query;
 
-    protected Repository_Abstract(JPAQueryFactory query) {
+    protected Base_Repository(JPAQueryFactory query) {
         this.query = query;
     }
 

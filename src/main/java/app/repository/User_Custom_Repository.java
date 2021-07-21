@@ -1,10 +1,10 @@
-package app.repository.user;
+package app.repository;
 
-import app.data.entity.user.QUser;
-import app.data.entity.user.QUser_Account;
-import app.data.entity.user.User;
-import app.data.entity.user.User_Account;
-import app.repository.basement.Repository_Abstract;
+import app.data.entity.QUser;
+import app.data.entity.QUser_Account;
+import app.data.entity.User;
+import app.data.entity.User_Account;
+import app.repository.basement.Base_Repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -13,12 +13,12 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public class User_Repository extends Repository_Abstract {
+public class User_Custom_Repository extends Base_Repository {
 
     QUser qUser = QUser.user;
     QUser_Account qUser_Account= QUser_Account.user_Account;
 
-    protected User_Repository(JPAQueryFactory query) {
+    protected User_Custom_Repository(JPAQueryFactory query) {
         super(query);
     }
 

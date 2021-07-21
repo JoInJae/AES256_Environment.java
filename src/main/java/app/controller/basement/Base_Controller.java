@@ -1,11 +1,11 @@
 package app.controller.basement;
 
 
-public abstract class Controller_Abstract<Service>{
+public abstract class Base_Controller<Service>{
 
     protected final Service service;
 
-    protected Controller_Abstract(Service service) {
+    protected Base_Controller(Service service) {
         this.service = service;
     }
 

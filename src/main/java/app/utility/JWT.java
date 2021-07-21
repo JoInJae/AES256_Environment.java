@@ -1,6 +1,6 @@
 package app.utility;
 
-import app.data.entity.type.Token;
+import app.data.request.type.Token;
 import app.data.environment.JWT_Environment;
 
 import app.exception.InvalidAuthorizationException;

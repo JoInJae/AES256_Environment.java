@@ -5,8 +5,11 @@ import app.data.entity.listener.UUIDListener;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @EntityListeners(value = {UUIDListener.class})
 @MappedSuperclass
@@ -21,6 +24,12 @@ public abstract class Entity_Main {
     @Setter
     private String uuid;
 
+    @CreationTimestamp
+    @Column(name = "create_time", columnDefinition = "DATETIME", nullable = false)
+    private LocalDateTime createTime;
 
+    @UpdateTimestamp
+    @Column(name = "update_time", columnDefinition = "DATETIME", nullable = false)
+    private LocalDateTime updateTime;
 
 }

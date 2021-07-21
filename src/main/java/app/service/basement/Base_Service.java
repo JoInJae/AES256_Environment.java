@@ -3,14 +3,14 @@ package app.service.basement;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-public class Service_Abstract<Repository> {
+public class Base_Service<Repository> {
 
     protected final Repository repository;
 
     @PersistenceContext
     protected EntityManager em;
 
-    public Service_Abstract(Repository repository) {
+    public Base_Service(Repository repository) {
         this.repository = repository;
     }
 }

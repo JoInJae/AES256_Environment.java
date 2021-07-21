@@ -1,6 +1,5 @@
 package app;
 
-import app.data.entity.type.Token;
 import app.utility.JWT;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
