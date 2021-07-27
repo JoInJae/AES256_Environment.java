@@ -1,7 +1,6 @@
 package app.configuration;
 
 import app.interceptor.Authentication_Access;
-
 import app.interceptor.Authentication_Refresh;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -28,10 +27,13 @@ public class WebMVC implements WebMvcConfigurer {
 
         registry.addInterceptor(authentication_refresh_interceptor).addPathPatterns("/user/reissue");
 
+
+
     }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**").allowedOrigins("*");
     }
+
 }

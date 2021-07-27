@@ -3,6 +3,7 @@ package app.utility;
 import app.data.request.type.Token;
 import app.data.environment.JWT_Environment;
 
+import app.data.response.type.Response;
 import app.exception.InvalidAuthorizationException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -53,7 +54,7 @@ public class JWT {
 
         }catch (Exception e){
 
-            throw new InvalidAuthorizationException();
+            throw new InvalidAuthorizationException(Response.FAIL_TOKEN_INVALID);
 
         }
 

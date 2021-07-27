@@ -2,7 +2,9 @@ package app.controller;
 
 import app.controller.basement.Base_Controller;
 import app.data.request.LogDTO;
+import app.data.response.Message;
 import app.service.Log_Service;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping(value = "/log", method = RequestMethod.POST)
@@ -14,9 +16,9 @@ public class Log_Controller extends Base_Controller<Log_Service> {
     }
 
     @PostMapping("/put")
-    public void log_put(@RequestBody LogDTO.Input param, @RequestAttribute("uuid")String uuid){
+    public ResponseEntity<Message<Void>> log_put(@RequestBody LogDTO.Input param, @RequestAttribute("uuid")String uuid){
 
-        service.log_put(param, uuid);
+        return ResponseEntity.ok(service.log_put(param, uuid));
 
     }
 

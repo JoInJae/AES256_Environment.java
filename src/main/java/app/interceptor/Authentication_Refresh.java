@@ -2,6 +2,7 @@ package app.interceptor;
 
 import app.data.request.type.Token;
 import app.data.entity.User_Account;
+import app.data.response.type.Response;
 import app.exception.InvalidAuthorizationException;
 import app.repository.User_Custom_Repository;
 import app.utility.JWT;
@@ -30,19 +31,19 @@ public class Authentication_Refresh implements HandlerInterceptor {
 
         String authorization = request.getHeader("Authorization");
 
-        if(authorization == null || !(authorization.startsWith("Bearer "))) throw new InvalidAuthorizationException();
+        if(authorization == null || !(authorization.startsWith("Bearer "))) throw new InvalidAuthorizationException(Response.FAIL_TOKEN_NOT_EXIST);
 
         String token = authorization.replace("Bearer ","");
 
         Claims claims = jwt.get(token);
 
-        if(claims.getExpiration().before(new Date())) throw new InvalidAuthorizationException();
+        if(claims.getExpiration().before(new Date())) throw new InvalidAuthorizationException(Response.FAIL_TOKEN_TIMEOUT);
 
         String uuid = (String)claims.get("uuid");
 
         Optional<User_Account> is_user_account = user_repository.user_account_get(uuid);
 
-        if(is_user_account.isEmpty()) throw new InvalidAuthorizationException();
+        if(is_user_account.isEmpty()) throw new InvalidAuthorizationException(Response.FAIL_TOKEN_INVALID);
 
         request.setAttribute("access", jwt.create(Token.ACCESS, uuid));
 

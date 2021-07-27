@@ -1,9 +1,10 @@
 package app.service;
 
 import app.data.request.LogDTO;
+import app.data.response.Message;
 
 public interface Log_Service {
 
-    void log_put(LogDTO.Input param, String uuid);
+    Message<Void> log_put(LogDTO.Input param, String uuid);
 
 }

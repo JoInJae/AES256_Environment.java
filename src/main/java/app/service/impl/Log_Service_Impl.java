@@ -3,6 +3,7 @@ package app.service.impl;
 import app.data.entity.Log;
 import app.data.entity.User;
 import app.data.request.LogDTO;
+import app.data.response.Message;
 import app.exception.WrongApprochEntityException;
 import app.repository.Log_Custom_Repository;
 import app.repository.part.user.User_Repository;
@@ -25,7 +26,7 @@ public class Log_Service_Impl extends Base_Service<Log_Custom_Repository> implem
 
     @Transactional
     @Override
-    public void log_put(LogDTO.Input param, String uuid) {
+    public Message<Void> log_put(LogDTO.Input param, String uuid) {
 
         Optional<User> is_user = user_repository.findByUuid(uuid);
 
@@ -34,6 +35,8 @@ public class Log_Service_Impl extends Base_Service<Log_Custom_Repository> implem
         Log log = param.toEntity(is_user.get());
 
         em.persist(log);
+
+        return Message.ok();
 
     }
 
