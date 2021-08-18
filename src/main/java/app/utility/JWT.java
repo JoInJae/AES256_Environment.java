@@ -1,11 +1,12 @@
 package app.utility;
 
-import app.data.request.type.Token;
+import app.data.type.Token;
 import app.data.environment.JWT_Environment;
 
 import app.data.response.type.Response;
 import app.exception.InvalidAuthorizationException;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -26,13 +27,14 @@ public class JWT {
         this.environment = environment;
     }
 
-    public String create(Token type, String uuid){
+    public String create(Token type, String subject, String uuid){
 
-        Map<String, String> claims = new HashMap<>(){
+        Map<String, Object> claims = new HashMap<>(){
             private static final long serialVersionUID = 8812712777761754913L;
             {
+                put("type", type);
+                put("subject", subject);
                 put("uuid", uuid);
-                put("type", type.name());
             }
         };
 
@@ -51,6 +53,10 @@ public class JWT {
             return Jwts.parserBuilder()
                     .setSigningKey(Keys.hmacShaKeyFor(Base64.getDecoder().decode(environment.getPrivate_key()))).build()
                     .parseClaimsJws(input).getBody();
+
+        }catch (ExpiredJwtException e){
+
+            throw new InvalidAuthorizationException(Response.FAIL_TOKEN_TIMEOUT);
 
         }catch (Exception e){
 

@@ -1,0 +1,15 @@
+package app.mvc.service;
+
+import app.data.request.AdminDTO;
+import app.data.response.Message;
+
+import javax.servlet.http.HttpServletResponse;
+
+public interface Admin_Service {
+
+    Message admin_put(AdminDTO.Input param);
+
+    Message admin_login(AdminDTO.Login_Check param, HttpServletResponse response);
+
+    Message admin_reissue(String value);
+}

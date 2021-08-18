@@ -1,41 +1,28 @@
 package app.data.response;
 
 import app.data.response.type.Response;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import javax.annotation.Nullable;
 
-@AllArgsConstructor
-@Builder
 @Getter
-public class Message <B>{
+public class Message {
 
     private final String code;
     private final String message;
-    @Nullable private final B body;
 
-    public static <B> Message <B> ok() {
+    public Message(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 
-        return Message.<B>builder()
-                .code(Response.SUCCESS.getStatus()).message(Response.SUCCESS.getMessage())
-                .build();
+    public static Message ok() {
+
+        return new Message(Response.SUCCESS.getStatus(), Response.SUCCESS.getMessage());
 
     }
 
-    public static <B> Message <B> ok(@Nullable B body) {
+    public static Message ok(Response response) {
 
-        return Message.<B>builder()
-                .code(Response.SUCCESS.getStatus()).message(Response.SUCCESS.getMessage()).body(body)
-                .build();
-
-    }
-
-    public static <B>Message <B> response(Response response){
-
-        return Message.<B>builder()
-                .code(response.getStatus()).message(response.getMessage())
-                .build();
+        return new Message(response.getStatus(), response.getMessage());
 
     }
 
