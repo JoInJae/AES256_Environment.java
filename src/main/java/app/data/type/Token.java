@@ -7,8 +7,8 @@ import lombok.Getter;
 @Getter
 public enum Token {
 
-    ACCESS(1000L * 30),
-    REFRESH(1000L * 60 * 5);
+    ACCESS(1000L * 60 * 5),
+    REFRESH(1000L * 60 * 60);
 
     private Long expiration;
 

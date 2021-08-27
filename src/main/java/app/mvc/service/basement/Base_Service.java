@@ -13,4 +13,5 @@ public class Base_Service<Repository> {
     public Base_Service(Repository repository) {
         this.repository = repository;
     }
+
 }

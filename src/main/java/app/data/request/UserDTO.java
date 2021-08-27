@@ -1,7 +1,6 @@
 package app.data.request;
 
 import app.data.entity.embeded.Birth;
-import app.data.type.Education;
 import app.data.type.Gender;
 import app.data.entity.part.user.User;
 import app.data.entity.part.user.User_Account;
@@ -27,7 +26,7 @@ public class UserDTO {
         private String emailId;
         private String emailAgency;
         private Gender gender;
-        private Education education;
+        private Long education;
         private Production production;
 
         public User_Account to_entity(){

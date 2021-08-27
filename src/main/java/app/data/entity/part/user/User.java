@@ -1,11 +1,9 @@
 package app.data.entity.part.user;
 
-import app.data.entity.converter.Edu_Converter;
 import app.data.entity.embeded.Birth;
 import app.data.entity.embeded.Email;
-import app.data.entity.part.log.Log;
+import app.data.entity.part.log.LogV1;
 import app.data.entity.basement.Entity_Main;
-import app.data.type.Education;
 import app.data.type.Gender;
 import app.data.type.Production;
 import lombok.Builder;
@@ -36,8 +34,8 @@ public class User extends Entity_Main {
 
 
     @AttributeOverrides({
-            @AttributeOverride(name = "email_1", column = @Column(name = "user_email_id", columnDefinition = "VARCHAR(30)", nullable = false)),
-            @AttributeOverride(name = "email_2", column = @Column(name = "user_email_domain", columnDefinition = "VARCHAR(20)", nullable = false))
+            @AttributeOverride(name = "email_1", column = @Column(name = "user_email_id", columnDefinition = "VARCHAR(30)")),
+            @AttributeOverride(name = "email_2", column = @Column(name = "user_email_agency", columnDefinition = "VARCHAR(20)"))
     })
     @Embedded
     private Email email;
@@ -47,8 +45,7 @@ public class User extends Entity_Main {
     private Gender gender;
 
     @Column(name = "user_education", columnDefinition = "INT(2)", nullable = false)
-    @Convert(converter = Edu_Converter.class)
-    private Education education;
+    private Long education;
 
 
     @Column(name = "production", columnDefinition = "VARCHAR(10)", nullable = false)
@@ -56,10 +53,10 @@ public class User extends Entity_Main {
     private Production production;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private final Set<Log> logs = new LinkedHashSet<>();
+    private final Set<LogV1> logs = new LinkedHashSet<>();
 
     @Builder
-    public User(String name, Gender gender, String email_id, String email_agency, String year, String month, String date, Education education, Production production) {
+    public User(String name, Gender gender, String email_id, String email_agency, String year, String month, String date, Long education, Production production) {
         this.name = name;
         this.birth = new Birth(year, month, date);
         this.email = new Email(email_id, email_agency);

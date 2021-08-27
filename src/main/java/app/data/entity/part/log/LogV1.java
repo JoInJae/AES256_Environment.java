@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 
-@Entity@Table(name = "Game_Log")
+@Entity@Table(name = "Game_Log_V1")
 @Getter@NoArgsConstructor
 @AttributeOverrides({
         @AttributeOverride(name = "idx", column = @Column(name = "log_idx",  columnDefinition = "BIGINT", nullable = false)),
 })
-public class Log extends Entity_Log {
+public class LogV1 extends Entity_Log {
 
     @Column(name = "game_name", columnDefinition = "VARCHAR(10)", nullable = false)
     private String name;
@@ -40,17 +40,25 @@ public class Log extends Entity_Log {
     @Embedded
     private Count count;
 
+    @Column(name = "game_limit", columnDefinition = "LONG", nullable = false)
+    private Long limit;
+
+    @Column(name = "game_time", columnDefinition = "LONG", nullable = false)
+    private Long time;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user", referencedColumnName = "user_idx")
     private User user;
 
     @Builder
-    public Log(String name, String rawdata, Long level, Long count_correct, Long count_total, Float score_acquired, Float score_total, User user) {
+    public LogV1(String name, String rawdata, Long level, Long count_correct, Long count_total, Float score_acquired, Float score_total, Long limit, Long time, User user) {
         this.name = name;
         this.rawdata = rawdata;
         this.level = level;
         this.score = new Score(score_acquired, score_total);
         this.count = new Count(count_correct, count_total);
+        this.limit = limit;
+        this.time = time;
         this.user = user;
     }
 

@@ -1,6 +1,6 @@
 package app.mvc.service.impl;
 
-import app.data.entity.part.log.Log;
+import app.data.entity.part.log.LogV1;
 import app.data.entity.part.user.User;
 import app.data.request.LogDTO;
 import app.data.response.Message;
@@ -26,18 +26,30 @@ public class Log_Service_Impl extends Base_Service<Log_Custom_Repository> implem
 
     @Transactional
     @Override
-    public Message log_put(LogDTO.Input param, String uuid) {
+    public Message log_put(LogDTO.V1 param, String uuid) {
 
         Optional<User> is_user = user_repository.findByUuid(uuid);
 
         if(is_user.isEmpty()) throw new WrongApproachEntityException(Response.ERROR_ENTITY);
 
-        Log log = param.toEntity(is_user.get());
+        LogV1 log = param.toEntity(is_user.get());
 
         em.persist(log);
 
         return Message.ok();
 
+    }
+
+    @Transactional
+    @Override
+    public Message log_put(LogDTO.V2 param, String uuid) {
+        return null;
+    }
+
+    @Transactional
+    @Override
+    public Message log_put(LogDTO.V3 param, String uuid) {
+        return null;
     }
 
 }
