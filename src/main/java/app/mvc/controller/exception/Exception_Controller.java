@@ -33,13 +33,4 @@ public class Exception_Controller {
 
     }
 
-    @ExceptionHandler({RuntimeException.class})
-    public ResponseEntity<String> runtime(RuntimeException e){
-
-        System.err.println(e.getMessage());
-
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
-
-    }
-
 }

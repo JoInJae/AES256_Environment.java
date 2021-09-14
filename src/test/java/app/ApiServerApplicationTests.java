@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -17,9 +18,9 @@ class ApiServerApplicationTests {
 	@Test
 	void contextLoads() {
 
-		Date after = new Date(System.currentTimeMillis() + 1000L);
-		Date now = new Date();
-		System.out.println(after.before(now));
+		LocalDate now = LocalDate.now();
+
+		System.out.println(now.getDayOfWeek());
 	}
 
 }

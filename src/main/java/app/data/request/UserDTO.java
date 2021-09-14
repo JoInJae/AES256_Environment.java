@@ -1,6 +1,7 @@
 package app.data.request;
 
 import app.data.entity.embeded.Birth;
+import app.data.entity.embeded.Email;
 import app.data.type.Gender;
 import app.data.entity.part.user.User;
 import app.data.entity.part.user.User_Account;
@@ -10,6 +11,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
+
 public class UserDTO {
 
     @NoArgsConstructor
@@ -17,8 +24,54 @@ public class UserDTO {
     @Getter
     public static class Input{
 
+        @Size(min = 1 , max = 30)
+        @NotBlank
         private String id;
+
+        @Size(min = 3)
+        @NotBlank
         private String password;
+
+        @NotBlank
+        private String name;
+
+        @NotNull
+        private String year;
+
+        @NotNull
+        private String month;
+
+        @NotNull
+        private String date;
+
+        private String emailId;
+
+        private String emailAgency;
+
+        @NotNull
+        private Gender gender;
+
+        @PositiveOrZero
+        @NotNull
+        private Long education;
+        
+        @NotNull
+       private Production production;
+
+        public User_Account to_entity(){
+
+            User user = User.builder().name(name).year(year).month(month).date(date).email_id(emailId).email_agency(emailAgency).gender(gender).education(education).production(production).build();
+
+            return User_Account.builder().user(user).id(id).password(password).build();
+
+        }
+
+    }
+
+    @AllArgsConstructor
+    @Getter
+    public static class Update{
+
         private String name;
         private String year;
         private String month;
@@ -27,14 +80,6 @@ public class UserDTO {
         private String emailAgency;
         private Gender gender;
         private Long education;
-        private Production production;
-
-        public User_Account to_entity(){
-
-            User user = User.builder().name(name).year(year).month(month).date(date).email_id(emailId).email_agency(emailAgency).gender(gender).education(education).production(production).build();
-
-            return User_Account.builder().user(user).id(id).password(password).build();
-        }
 
     }
 
@@ -57,12 +102,44 @@ public class UserDTO {
         }
     }
 
+    @Getter
+    public static class Info_Result{
+        private final String id;
+        private final String name;
+        private final String gender;
+        private final String birth;
+        private final Long education;
+        private final String email;
+        private final LocalDateTime createdAt;
+        private final LocalDateTime updatedAt;
+
+        public Info_Result(String id, String name, Gender gender, Birth birth, Long education, Email email, LocalDateTime createdAt, LocalDateTime updatedAt) {
+            this.id = id;
+            this.name = name;
+            this.gender = gender.getKor();
+            this.birth = birth.getBirth_1() + birth.getBirth_2() + birth.getBirth_3();
+            this.education = education;
+            this.email = ( email != null ) ? email.getEmail_1() + "@" + email.getEmail_2() : null;
+            this.createdAt = createdAt;
+            this.updatedAt = updatedAt;
+        }
+    }
+
     @NoArgsConstructor
     @AllArgsConstructor
     @Getter
     public static class ID_Check{
 
         private String id;
+
+    }
+
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    public static class Password{
+
+        private String password;
 
     }
 

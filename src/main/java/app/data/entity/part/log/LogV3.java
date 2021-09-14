@@ -9,8 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
-
 @Entity@Table(name = "Game_Log_V3")
 @Getter@NoArgsConstructor
 @AttributeOverrides({

@@ -1,15 +1,21 @@
 package app.mvc.repository;
 
+import app.data.entity.embeded.Birth;
+import app.data.entity.embeded.Email;
+import app.data.entity.embeded.Password;
 import app.data.entity.part.user.QUser;
 import app.data.entity.part.user.QUser_Account;
 import app.data.entity.part.user.User;
 import app.data.entity.part.user.User_Account;
 import app.data.request.UserDTO;
+import app.data.response.type.Response;
 import app.data.type.Production;
 import app.mvc.repository.basement.Base_Repository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.querydsl.jpa.impl.JPAUpdateClause;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -80,6 +86,72 @@ public class User_Custom_Repository extends Base_Repository {
                             qUser_Account.id, qUser_Account.user.name, qUser_Account.user.gender,
                             qUser_Account.user.birth, qUser_Account.user.education, qUser_Account.user.production
                 )).where(builder).fetch();
+
+    }
+
+    public Long user_info_update(User user, UserDTO.Update param) {
+
+        JPAUpdateClause update = query.update(qUser).where(qUser.eq(user));
+
+        if(param.getName() != null && !user.getName().equals(param.getName())){
+            update.set(qUser.name, param.getName());
+        }
+
+        if(param.getEducation() != null && !user.getEducation().equals(param.getEducation())){
+            update.set(qUser.education, param.getEducation());
+        }
+
+        if(param.getGender()!= null && !user.getGender().equals(param.getGender())){
+            update.set(qUser.gender, param.getGender());
+        }
+
+        if(param.getYear() != null && param.getMonth() != null && param.getDate() != null && !new Birth(param.getYear(), param.getMonth(), param.getDate()).equals(user.getBirth())){
+            update.set(qUser.birth.birth_1, param.getYear());
+            update.set(qUser.birth.birth_2, param.getMonth());
+            update.set(qUser.birth.birth_3, param.getDate());
+        }
+
+
+        if(!new Email(param.getEmailId(), param.getEmailAgency()).equals(user.getEmail())){
+
+                update.set(qUser.email.email_1, param.getEmailId());
+                update.set(qUser.email.email_2, param.getEmailAgency());
+
+        }
+
+        if(update.isEmpty()) return 0L;
+
+        return update.execute();
+
+    }
+
+    public Optional<Password> password_get(String uuid) {
+
+        Password  password = query.from(qUser_Account).select(qUser_Account.password).where(qUser_Account.user.uuid.eq(uuid)).fetchFirst();
+
+        return (password != null) ? Optional.of(password) : Optional.empty();
+
+    }
+
+    public long user_password_update(String password, User user) {
+
+        JPAUpdateClause update = query.update(qUser_Account).where(qUser_Account.user.eq(user));
+
+        update.set(qUser_Account.password, new Password(password, RandomStringUtils.randomAlphanumeric(12)));
+
+        return update.execute();
+
+    }
+
+    public UserDTO.Info_Result user_get_by_uuid(String uuid) {
+
+        return query.from(qUser_Account)
+                .select(Projections.constructor(UserDTO.Info_Result.class,
+                        qUser_Account.id, qUser_Account.user.name, qUser_Account.user.gender, qUser_Account.user.birth,
+                        qUser_Account.user.education, qUser_Account.user.email, qUser_Account.user.createTime, qUser_Account.user.updateTime
+                ))
+                .where(qUser.uuid.eq(uuid))
+                .fetchFirst();
 
     }
 }

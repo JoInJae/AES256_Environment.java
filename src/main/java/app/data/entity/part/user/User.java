@@ -4,6 +4,8 @@ import app.data.entity.embeded.Birth;
 import app.data.entity.embeded.Email;
 import app.data.entity.part.log.LogV1;
 import app.data.entity.basement.Entity_Main;
+import app.data.entity.part.log.LogV2;
+import app.data.entity.part.log.LogV3;
 import app.data.type.Gender;
 import app.data.type.Production;
 import lombok.Builder;
@@ -53,7 +55,13 @@ public class User extends Entity_Main {
     private Production production;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private final Set<LogV1> logs = new LinkedHashSet<>();
+    private final Set<LogV1> v1_logs= new LinkedHashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private final Set<LogV2> v2_logs = new LinkedHashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private final Set<LogV3> v3_logs = new LinkedHashSet<>();
 
     @Builder
     public User(String name, Gender gender, String email_id, String email_agency, String year, String month, String date, Long education, Production production) {

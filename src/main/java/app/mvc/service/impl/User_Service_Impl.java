@@ -1,5 +1,7 @@
 package app.mvc.service.impl;
 
+import app.data.entity.embeded.Password;
+import app.data.entity.part.user.User;
 import app.data.response.Message;
 import app.data.response.MessageB;
 import app.data.type.Production;
@@ -9,6 +11,7 @@ import app.data.request.UserDTO;
 import app.data.response.type.Response;
 import app.exception.InvalidAuthorizationException;
 import app.exception.WrongAccountException;
+import app.exception.basement.BaseException;
 import app.mvc.repository.User_Custom_Repository;
 import app.mvc.service.User_Service;
 import app.mvc.service.basement.Base_Service;
@@ -40,6 +43,41 @@ public class User_Service_Impl extends Base_Service<User_Custom_Repository> impl
 
     }
 
+    @Transactional
+    @Override
+    public Message user_modify(UserDTO.Update param, String uuid) {
+
+        Optional<User> is_user = repository.user_get(uuid);
+
+        if(is_user.isEmpty()) throw new BaseException(Response.ERROR_ENTITY);
+
+        User user = is_user.get();
+
+        long check = repository.user_info_update(user, param);
+
+        if(check >0) return Message.ok();
+
+
+        return Message.ok();
+
+    }
+
+    @Transactional
+    @Override
+    public Message user_password_modify(UserDTO.Password param, String uuid) {
+
+        Optional<User> is_user = repository.user_get(uuid);
+
+        if(is_user.isEmpty()) throw new BaseException(Response.ERROR_ENTITY);
+
+        long check = repository.user_password_update(param.getPassword(), is_user.get());
+
+        if(check >0) return Message.ok();
+
+        return Message.ok();
+
+    }
+
     @Override
     public Message user_id_check(UserDTO.ID_Check param) {
 
@@ -48,6 +86,22 @@ public class User_Service_Impl extends Base_Service<User_Custom_Repository> impl
         if(check) throw new WrongAccountException(Response.FAIL_ID_DUPLICATE);
 
         return Message.ok();
+
+    }
+
+    @Override
+    public Message user_password_check(UserDTO.Password param, String uuid) {
+
+       Optional<Password> is_password = repository.password_get(uuid);
+
+        if(is_password.isEmpty()) throw new BaseException(Response.ERROR_ENTITY);
+
+
+        if(is_password.get().match(param.getPassword())){
+            return Message.ok();
+        }
+
+        throw new WrongAccountException(Response.WRONG_PASSWORD);
 
     }
 
@@ -78,6 +132,11 @@ public class User_Service_Impl extends Base_Service<User_Custom_Repository> impl
 
         return MessageB.ok(repository.user_get_all(production));
 
+    }
+
+    @Override
+    public MessageB<UserDTO.Info_Result> user_get(String uuid) {
+        return MessageB.ok(repository.user_get_by_uuid(uuid));
     }
 
 }

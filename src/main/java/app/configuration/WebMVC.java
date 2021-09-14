@@ -19,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
-        registry.addInterceptor(authentication).addPathPatterns("/log/**","/user/reissue", "/admin/test");
+        registry.addInterceptor(authentication).addPathPatterns("/log/**","/user/modify","/user/get/info","/user/password/*","/user/reissue", "/stat/analysis/get","/admin/test");
 
     }
 

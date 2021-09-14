@@ -7,7 +7,10 @@ import app.data.response.Message;
 import app.data.response.MessageB;
 import app.mvc.service.User_Service;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RequestMapping(value = "/user", method = RequestMethod.POST)
 @RestController
@@ -18,11 +21,28 @@ public class User_Controller extends Base_Controller<User_Service> {
     }
 
     @PostMapping("/put")
-    public ResponseEntity<Message> user_put(@RequestBody UserDTO.Input param){
+    public ResponseEntity<Message> user_put(@Valid @RequestBody UserDTO.Input param, BindingResult bindingResult){
+
+        parameter_check(bindingResult.hasErrors());
 
         return ResponseEntity.ok(service.user_put(param));
 
     }
+
+    @PostMapping("/modify")
+    public ResponseEntity<Message> user_modify(@RequestBody UserDTO.Update param, @RequestAttribute("uuid")String uuid){
+
+        return ResponseEntity.ok(service.user_modify(param, uuid));
+
+    }
+
+    @PostMapping("/password/modify")
+    public ResponseEntity<Message> user_password_modify(@RequestBody UserDTO.Password param, @RequestAttribute("uuid")String uuid){
+
+        return ResponseEntity.ok(service.user_password_modify(param, uuid));
+
+    }
+
 
     @PostMapping("/get/all")
     public ResponseEntity<Message> user_get_all(@RequestParam(name = "production", required = false) Production production){
@@ -31,10 +51,23 @@ public class User_Controller extends Base_Controller<User_Service> {
 
     }
 
+    @PostMapping("/get/info")
+    public ResponseEntity<Message> user_get(@RequestAttribute("uuid")String uuid){
+
+        return ResponseEntity.ok(service.user_get(uuid));
+
+    }
+
     @PostMapping("/id/check")
     public ResponseEntity<Message> user_id_check(@RequestBody UserDTO.ID_Check param){
 
         return ResponseEntity.ok(service.user_id_check(param));
+    }
+
+    @PostMapping("/password/check")
+    public ResponseEntity<Message> user_password_check(@RequestBody UserDTO.Password param, @RequestAttribute("uuid")String uuid){
+
+        return ResponseEntity.ok(service.user_password_check(param, uuid));
     }
 
     @PostMapping("/login/check")

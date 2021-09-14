@@ -7,7 +7,6 @@ import app.mvc.service.Log_Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping(value = "/log", method = RequestMethod.POST)
 @RestController
 public class Log_Controller extends Base_Controller<Log_Service> {
 
@@ -15,24 +14,31 @@ public class Log_Controller extends Base_Controller<Log_Service> {
         super(log_service);
     }
 
-    @PostMapping("/1/put")
+    @PostMapping("/log/1/put")
     public ResponseEntity<Message> log_v1_put(@RequestBody LogDTO.V1 param, @RequestAttribute("uuid")String uuid){
 
         return ResponseEntity.ok(service.log_put(param, uuid));
 
     }
 
-    @PostMapping("/2/put")
+    @PostMapping("/log/2/put")
     public ResponseEntity<Message> log_v2_put(@RequestBody LogDTO.V2 param, @RequestAttribute("uuid")String uuid){
 
         return ResponseEntity.ok(service.log_put(param, uuid));
 
     }
 
-    @PostMapping("/3/put")
+    @PostMapping("/log/3/put")
     public ResponseEntity<Message> log_v3_put(@RequestBody LogDTO.V3 param, @RequestAttribute("uuid")String uuid){
 
         return ResponseEntity.ok(service.log_put(param, uuid));
+
+    }
+
+    @PostMapping("/stat/analysis/get")
+    public ResponseEntity<Message> stat_get(@RequestAttribute("uuid") String uuid ){
+
+        return ResponseEntity.ok(service.stat_get(uuid));
 
     }
 

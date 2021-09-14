@@ -1,5 +1,6 @@
 package app.data.type;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,5 +13,18 @@ public enum Gender {
 
     private String eng;
     private String kor;
+
+    @JsonCreator
+    public static Gender from(String name){
+
+        for (Gender gender : Gender.values()){
+
+            if(gender.name().equals(name)) return gender;
+
+        }
+
+        return null;
+
+    }
 
 }

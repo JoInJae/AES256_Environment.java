@@ -12,7 +12,7 @@ public enum Response {
     FAIL_ID("0001", "잘못된 아이디"),
     FAIL_PASSWORD("0002", "잘못된 패스워드"),
     FAIL_ID_DUPLICATE("0003", "중복된 아이디"),
-    FAIL_PASSWORD_DUPLICATE("0004", "중복된 패스워드"),
+    WRONG_PASSWORD("0004", "잘못된 패스워드"),
     FAIL_TOKEN_NOT_EXIST("0005", "잘못된 토큰 양식"),
     FAIL_TOKEN_INVALID("0006", "유효하지 않은 토큰"),
     FAIL_TOKEN_TIMEOUT("0007", "유효 기간이 지난 토큰"),
