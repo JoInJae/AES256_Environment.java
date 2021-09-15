@@ -91,10 +91,10 @@ public class Log_Custom_Repository extends Base_Repository {
                 .groupBy(qLogV1.name)
                 .where(qLogV1.user.uuid.eq(uuid).and(formattedDate.eq(now.toString()))).fetch();
 
-        String name = "";
-        float score = 0 ;
-
         if(game_tmp_results.size() > 0 ) {
+
+            String name = "";
+            float score = 0 ;
 
             for (LogDTO.Best_Score_Tmp game_tmp_result : game_tmp_results) {
 
@@ -116,7 +116,7 @@ public class Log_Custom_Repository extends Base_Repository {
 
             }
 
-            float compare = (!map.containsKey(null)) ? score - map.get(name) : 0;
+            float compare = (!map.containsKey(null)) ? score - ((map.get(name) != null) ? map.get(name) : 0) : 0;
 
             return new LogDTO.Best_Score(name, score, compare);
 
@@ -146,9 +146,9 @@ public class Log_Custom_Repository extends Base_Repository {
 
         if(time_tmp != null) {
 
-            long compare = !map.containsKey(null) ? map.get(time_tmp.getName()) - time_tmp.getTime() : 0;
+            long compare = !map.containsKey(null) ? (map.get(time_tmp.getName()) != null ? map.get(time_tmp.getName()) : 0) - time_tmp.getTime() : 0;
 
-            new LogDTO.Best_Time(time_tmp.getName(), time_tmp.getTime(), compare);
+            return new LogDTO.Best_Time(time_tmp.getName(), time_tmp.getTime(), compare);
 
         }
 
