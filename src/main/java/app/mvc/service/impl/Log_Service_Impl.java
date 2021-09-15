@@ -80,13 +80,13 @@ public class Log_Service_Impl extends Base_Service<Log_Custom_Repository> implem
     @Override
     public MessageB<LogDTO.Stat> stat_get(String uuid) {
 
-        LocalDateTime end = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
 
-        LocalDateTime tmp= LocalDateTime.of(end.toLocalDate(), LocalTime.of(0,0,0));
+        LocalDateTime tmp= LocalDateTime.of(now.toLocalDate(), LocalTime.of(0,0,0));
 
         LocalDateTime start;
 
-        switch (end.getDayOfWeek()){
+        switch (now.getDayOfWeek()){
             case TUESDAY:
                 start = tmp.minusDays(1); break;
             case WEDNESDAY:
@@ -104,9 +104,13 @@ public class Log_Service_Impl extends Base_Service<Log_Custom_Repository> implem
                 start = tmp; break;
         }
 
-        List<LogDTO.Stat_This_Week_Tmp> tmps = repository.this_week_ratio_get(start, end, uuid);
+        List<LogDTO.Stat_This_Week_Tmp> tmps = repository.this_week_ratio_get(start, now, uuid);
 
         LogDTO.Stat result = new LogDTO.Stat();
+
+        result.setBest_score(repository.best_score_get(uuid));
+
+        result.setBest_time(repository.best_time_get(uuid));
 
         long total = 0;
 

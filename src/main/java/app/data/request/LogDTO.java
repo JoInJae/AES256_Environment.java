@@ -7,6 +7,7 @@ import app.data.entity.part.user.User;
 import com.google.gson.Gson;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +83,58 @@ public class LogDTO {
 
     }
 
-    @ToString
+
+    @Getter
+    public static class Stat{
+
+        @Setter
+        private Best_Score best_score;
+        @Setter
+        private Best_Time best_time;
+        private final List<Ratio> ratio = new ArrayList<>();
+        private final List<TimePerWeek> timePerWeek = new ArrayList<>();
+        private final List<TimePerDay> timePerDay = new ArrayList<>();
+
+    }
+
+    @AllArgsConstructor
+    @Getter
+    public static class Best_Score{
+
+        private String name;
+        private Float score;
+        private Float comparedScore;
+
+    }
+
+    @AllArgsConstructor
+    @Getter
+    public static class Best_Score_Tmp{
+
+        private String name;
+        private Float score;
+
+    }
+
+    @AllArgsConstructor
+    @Getter
+    public static class Best_Time{
+
+        private String name;
+        private Long time;
+        private Long comparedTime;
+
+    }
+
+    @AllArgsConstructor
+    @Getter
+    public static class Best_Time_Tmp{
+
+        private String name;
+        private Long time;
+
+    }
+
     @Getter
     public static class Stat_This_Week_Tmp{
 
@@ -118,15 +170,6 @@ public class LogDTO {
         private Long count;
         private Long time;
         private Float score;
-
-    }
-
-    @Getter
-    public static class Stat{
-
-        private final List<Ratio> ratio = new ArrayList<>();
-        private final List<TimePerWeek> timePerWeek = new ArrayList<>();
-        private final List<TimePerDay> timePerDay = new ArrayList<>();
 
     }
 
