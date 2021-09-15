@@ -94,29 +94,37 @@ public class Log_Custom_Repository extends Base_Repository {
         String name = "";
         float score = 0 ;
 
-        for (LogDTO.Best_Score_Tmp game_tmp_result : game_tmp_results){
+        if(game_tmp_results.size() > 0 ) {
 
-            if("".equals(name)){
+            for (LogDTO.Best_Score_Tmp game_tmp_result : game_tmp_results) {
 
-                name = game_tmp_result.getName();
-                score = game_tmp_result.getScore();
-
-            }else{
-
-                if(score < game_tmp_result.getScore()){
+                if ("".equals(name)) {
 
                     name = game_tmp_result.getName();
                     score = game_tmp_result.getScore();
+
+                } else {
+
+                    if (score < game_tmp_result.getScore()) {
+
+                        name = game_tmp_result.getName();
+                        score = game_tmp_result.getScore();
+
+                    }
 
                 }
 
             }
 
+            float compare = (!map.containsKey(null)) ? score - map.get(name) : 0;
+
+            return new LogDTO.Best_Score(name, score, compare);
+
+        }else{
+
+            return null;
+
         }
-
-        float compare = (!map.containsKey(null))? score - map.get(name) : 0;
-
-        return (!"".equals(name)) ? new LogDTO.Best_Score(name, score, compare) : null;
 
     }
 
@@ -136,9 +144,15 @@ public class Log_Custom_Repository extends Base_Repository {
                 ))
                 .groupBy(qLogV3.name).where(qLogV3.user.uuid.eq(uuid).and(formattedDate.eq(now.toString()))).fetchFirst();
 
-        long compare = !map.containsKey(null) ? map.get(time_tmp.getName()) - time_tmp.getTime() : 0;
+        if(time_tmp != null) {
 
-        return (time_tmp != null) ? new LogDTO.Best_Time(time_tmp.getName(), time_tmp.getTime(), compare) : null;
+            long compare = !map.containsKey(null) ? map.get(time_tmp.getName()) - time_tmp.getTime() : 0;
+
+            new LogDTO.Best_Time(time_tmp.getName(), time_tmp.getTime(), compare);
+
+        }
+
+        return  null;
 
     }
 }
