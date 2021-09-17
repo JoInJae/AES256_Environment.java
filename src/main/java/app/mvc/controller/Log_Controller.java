@@ -35,6 +35,7 @@ public class Log_Controller extends Base_Controller<Log_Service> {
 
     }
 
+    //마이페이지 정보
     @PostMapping("/stat/analysis/get")
     public ResponseEntity<Message> stat_get(@RequestAttribute("uuid") String uuid ){
 
