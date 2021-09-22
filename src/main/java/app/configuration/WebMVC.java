@@ -27,7 +27,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedMethods("POST","OPTIONS")
-                .allowedOrigins("http://localhost:8080","https://xradmin.super-brain.co.kr")
+                .allowedOrigins("http://localhost:8080","https://xradmin.super-brain.co.kr", "null")
                 .allowCredentials(true);
     }
 

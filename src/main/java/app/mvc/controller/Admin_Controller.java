@@ -2,12 +2,15 @@ package app.mvc.controller;
 
 import app.data.request.AdminDTO;
 import app.data.response.Message;
+import app.data.response.MessageB;
 import app.mvc.controller.basement.Base_Controller;
 import app.mvc.service.Admin_Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 @RequestMapping(value = "/admin", method = RequestMethod.POST)
 @RestController
@@ -38,12 +41,15 @@ public class Admin_Controller extends Base_Controller<Admin_Service> {
 
     }
 
-    @PostMapping("/test")
-    public ResponseEntity<Message> test(@RequestAttribute("uuid")String uuid){
+    @PostMapping("/get/main/info")
+    public ResponseEntity<Message> main_info_get(){
 
-        System.out.println(uuid);
-        System.out.println("abc");
-        return ResponseEntity.ok(Message.ok());
+        String[][] data = new String[][]{
+                {"남성 회원", "50"},
+                {"여성 회원", "50"}
+        };
+
+        return ResponseEntity.ok(MessageB.ok(data));
 
     }
 

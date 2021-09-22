@@ -17,7 +17,8 @@ public class MessageB<B> extends Message {
     public static <B> MessageB<B> ok(@Nullable B body) {
 
         return new MessageB<>(Response.SUCCESS.getStatus(), Response.SUCCESS.getMessage(), body);
-
     }
 
+
 }
+
