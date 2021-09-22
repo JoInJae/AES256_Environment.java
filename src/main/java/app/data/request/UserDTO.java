@@ -10,11 +10,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class UserDTO {
@@ -153,12 +153,42 @@ public class UserDTO {
 
     }
 
-    @AllArgsConstructor
-    @Builder
     @Getter
-    public static class Login_Check_Result{
+    public static class Login_Check_Result extends  UserDTO{
+
         private final String access;
         private final String refresh;
+
+        @Builder
+        public Login_Check_Result(String access, String refresh) {
+            this.access = access;
+            this.refresh = refresh;
+        }
+
+    }
+
+
+    @Getter
+    public static class Login_Check_WonJu_Result extends UserDTO{
+
+        private final String access;
+        private final String refresh;
+        private final String name;
+        private final String gender;
+        private final Integer age;
+        private final Long education;
+
+        @Builder
+        public Login_Check_WonJu_Result(String access, String refresh, String name, Gender gender, Birth birth, Long education) {
+           LocalDate now = LocalDate.now();
+            this.access = access;
+            this.refresh = refresh;
+            this.name = name;
+            this.education = education;
+            this.gender = gender.getKor();
+            this.age = now.getYear() -  Integer.parseInt(birth.getBirth_1()) + 1;
+        }
+
     }
 
     @AllArgsConstructor

@@ -19,7 +19,7 @@ public interface User_Service {
 
     Message user_password_check(UserDTO.Password param, String uuid);
 
-    MessageB<UserDTO.Login_Check_Result> user_login_check(UserDTO.Login_Check param);
+    MessageB<UserDTO> user_login_check(UserDTO.Login_Check param);
 
     MessageB<List<UserDTO.Simple_Info_Result>> user_get_all(Production production);
 

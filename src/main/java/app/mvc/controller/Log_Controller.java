@@ -42,4 +42,5 @@ public class Log_Controller extends Base_Controller<Log_Service> {
 
     }
 
+
 }

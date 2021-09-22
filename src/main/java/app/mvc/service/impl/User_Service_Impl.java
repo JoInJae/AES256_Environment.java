@@ -107,7 +107,7 @@ public class User_Service_Impl extends Base_Service<User_Custom_Repository> impl
 
     @Transactional
     @Override
-    public MessageB<UserDTO.Login_Check_Result> user_login_check(UserDTO.Login_Check param) {
+    public MessageB<UserDTO> user_login_check(UserDTO.Login_Check param) {
 
         Optional<User_Account> is_user_account = repository.user_account_get_by_id(param.getId());
 
@@ -117,11 +117,20 @@ public class User_Service_Impl extends Base_Service<User_Custom_Repository> impl
 
         if(!(user_account.getPassword().match(param.getPassword()))) throw new InvalidAuthorizationException(Response.FAIL_PASSWORD);
 
-        String uuid = user_account.getUser().getUuid();
-        String access = jwt.create(Token.ACCESS, "user", uuid);
-        String refresh = jwt.create(Token.REFRESH, "user", uuid);
+        User user =  user_account.getUser();
+
+        String access = jwt.create(Token.ACCESS, "user", user.getUuid());
+        String refresh = jwt.create(Token.REFRESH, "user", user.getUuid());
 
         if(repository.token_update(user_account, refresh) <= 0) throw new InvalidAuthorizationException(Response.ERROR_SQL);
+
+        if(Production.WONJU.equals(user_account.getUser().getProduction())){
+
+            return MessageB.ok(
+                    UserDTO.Login_Check_WonJu_Result.builder().access(access).refresh(refresh)
+                            .birth(user.getBirth()).gender(user.getGender()).name(user.getName()).education(user.getEducation()).build());
+
+        }
 
         return MessageB.ok(UserDTO.Login_Check_Result.builder().access(access).refresh(refresh).build());
 
@@ -136,7 +145,9 @@ public class User_Service_Impl extends Base_Service<User_Custom_Repository> impl
 
     @Override
     public MessageB<UserDTO.Info_Result> user_get(String uuid) {
+
         return MessageB.ok(repository.user_get_by_uuid(uuid));
+
     }
 
 }
