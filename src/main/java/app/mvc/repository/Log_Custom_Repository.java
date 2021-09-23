@@ -1,5 +1,6 @@
 package app.mvc.repository;
 
+import app.data.entity.part.log.QLog;
 import app.data.entity.part.log.QLogV1;
 import app.data.entity.part.log.QLogV2;
 import app.data.entity.part.log.QLogV3;
@@ -10,6 +11,7 @@ import com.querydsl.core.types.ConstantImpl;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.StringTemplate;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
@@ -23,6 +25,7 @@ public class Log_Custom_Repository extends Base_Repository {
     QLogV1 qLogV1 = QLogV1.logV1;
     QLogV2 qLogV2 = QLogV2.logV2;
     QLogV3 qLogV3 = QLogV3.logV3;
+    QLog qLog = QLog.log;
 
     protected Log_Custom_Repository(JPAQueryFactory query) {
         super(query);
@@ -153,6 +156,33 @@ public class Log_Custom_Repository extends Base_Repository {
         }
 
         return  null;
+
+    }
+
+    public List<LogDTO.Game_Info> game_info_get(String uuid) {
+
+        return query.from(qLog)
+                .select(Projections.constructor(LogDTO.Game_Info.class,
+                        qLog.wonju, qLog.next))
+                .orderBy(qLog.createTime.desc())
+                .where(qLog.user.uuid.eq(uuid).and(qLog.createTime.in(JPAExpressions
+                        .select(qLog.createTime.max())
+                        .from(qLog)
+                        .groupBy(qLog.wonju)
+                        .where(qLog.user.uuid.eq(uuid)))))
+                .fetch();
+
+    }
+
+    public List<LogDTO.LogHistory> log_list_get(String uuid) {
+
+        return query.from(qLog)
+                .select(Projections.constructor(LogDTO.LogHistory.class,
+                        qLog.wonju, qLog.present, qLog.score.score_1, qLog.score.score_2, qLog.createTime
+                ))
+                .where(qLog.user.uuid.eq(uuid))
+                .orderBy(qLog.createTime.desc())
+                .fetch();
 
     }
 }

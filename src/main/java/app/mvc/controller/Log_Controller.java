@@ -42,6 +42,20 @@ public class Log_Controller extends Base_Controller<Log_Service> {
 
     }
 
+    @PostMapping("/log/get/list")
+    public ResponseEntity<Message> log_list_get(@RequestAttribute("uuid")String uuid){
+
+        return ResponseEntity.ok(service.log_list_get(uuid));
+
+    }
+
+    @PostMapping("/game/get/info")
+    public ResponseEntity<Message> game_info_get(@RequestAttribute("uuid")String uuid){
+
+        return ResponseEntity.ok(service.game_info_get(uuid));
+
+    }
+
     //마이페이지 정보
     @PostMapping("/stat/analysis/get")
     public ResponseEntity<Message> stat_get(@RequestAttribute("uuid") String uuid ){

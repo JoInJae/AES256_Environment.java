@@ -174,4 +174,18 @@ public class Log_Service_Impl extends Base_Service<Log_Custom_Repository> implem
 
     }
 
+    @Override
+    public MessageB<List<LogDTO.Game_Info>> game_info_get(String uuid) {
+
+        return MessageB.ok(repository.game_info_get(uuid));
+
+    }
+
+    @Override
+    public MessageB<List<LogDTO.LogHistory>> log_list_get(String uuid) {
+
+        return MessageB.ok(repository.log_list_get(uuid));
+
+    }
+
 }

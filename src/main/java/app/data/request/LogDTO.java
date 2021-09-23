@@ -8,6 +8,8 @@ import app.data.entity.part.user.User;
 import app.data.type.Wonju;
 import com.google.gson.Gson;
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +22,8 @@ public class LogDTO {
 
         private List<Map<String, Object>> rawdata;
         private Wonju name;
-        private Long level;
+        private Long present;
+        private Long next;
         private Float acquiredScore;
         private Float totalScore;
 
@@ -28,7 +31,7 @@ public class LogDTO {
 
             return Log.builder()
                     .rawdata(new Gson().toJson(rawdata)).user(user)
-                    .wonju(name).level(level).score_acquired(acquiredScore).score_total(totalScore)
+                    .wonju(name).present(present).next(next).score_acquired(acquiredScore).score_total(totalScore)
                     .build();
 
         }
@@ -221,6 +224,38 @@ public class LogDTO {
         private String day;
         private Long time;
 
+    }
+
+
+    @Getter
+    public static class Game_Info{
+
+        private final String name;
+        private final Long level;
+
+        public Game_Info(Wonju wonju, Long level) {
+            this.name = wonju.getEng();
+            this.level = level;
+        }
+
+    }
+
+    @Getter
+    public static class LogHistory{
+
+        private final String name;
+        private final Long level;
+        private final Float point;
+        private final Float totalPoint;
+        private final LocalDateTime time;
+
+        public LogHistory(Wonju wonju, Long level, Float point, Float totalPoint, LocalDateTime time) {
+            this.name = wonju.getEng();
+            this.level = level;
+            this.point = point;
+            this.totalPoint = totalPoint;
+            this.time = time;
+        }
     }
 
 }

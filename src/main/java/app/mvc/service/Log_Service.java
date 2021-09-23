@@ -12,5 +12,6 @@ public interface Log_Service {
     Message log_put(LogDTO.Basic param, String uuid);
 
     MessageB stat_get(String uuid);
-
+    MessageB game_info_get(String uuid);
+    MessageB log_list_get(String uuid);
 }

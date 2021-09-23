@@ -9,9 +9,9 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   datasource:
-    url:  jdbc:mariadb://super-brain-db.c2rbzfa0saqk.ap-northeast-2.rds.amazonaws.com:3306/WonJu?characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Seoul&amp&allowPublicKeyRetrieval=true&useSSL=false
-    password: rowan0810
-    username: admin
+    url:  ENC(Yz4PVouSyHwzFSgyDn5rJB1enneBfBRCyqNMTgKeQyf/ZD9S21QU6Xu1d7Sdasg3U8KsiyDO/SJ001NriLLe2QtjBfQnb8QBxuloEy5gykaaLkTzor9SpDGve0ozJuBt2pjPYK7g3mANz6YzqrYv1YtK4arMYPy6Gt3Hm5B+s4MPfsXSDzahsGnrHly26czRF/Nguonlzp21gVmztWl6WNDTt4Rfzicpf5Iv/Vus3ZbqDIebvZo1JUYkHaI9NhdMQuIPgiTTN23CwL45r3QM1aAg9VoijAQV)
+    password: ENC(FI8DfxQcuMkXvJsNR3YenblTEkZ8CXJK)
+    username: ENC(XsYeMqWtGcDVm9jOpalyeA==)
     driver-class-name: org.mariadb.jdbc.Driver
 server:
   port: 5000
@@ -20,3 +20,6 @@ aes256:
   private-key: fi/BUG7DrhFhNCTIx7l1nSuO5Q3M37dHYx/Ws0uan48=
 jwt:
   private-key: 5zsOdCUk38l22Xh33I2PJZkqeQIPPdVrmButveQ/WzYd/PTQ3c3isM78cpCc5goTfYYist6rhEBK9pZhNXCKDV6ubfyaQHfDjfOE1/dmvZOhyomn5+Zmqaqp2i5B5LkfAi+vQSIgPkG3oN4KdGwyXyFaVsTAqGskTxV3kvnbn9g=
+jasypt:
+  encryptor:
+    password: 038V7UpafinGos0W4l8fgU5Aly0X6hRYjHnPe+DXqKyhPZDFvLWU6jaX1ovNYkBir1NqY6/rNyyr1Xgx+OSd18xqAtpByKd9CW13L0j+Vjfo4VvzzxZmbYN4mSJNyaQTRqfCSwa3B9e2SpgyYUgkqo1fG3vXqYTfHePeExl4iZuPpe1ryz+QRSpRMXJ76LW+XITe/HJgdkA+LQorNN6KDDeP63rkbMOGKA8RgYCvlLbSA7gkLuSqx6sXr4eTCoOD6u6V2KmJbqJltvduEbFXIeSTDGJGP3I5gX9VJhQ89QgyX0hvddvTWH6eZSOfU9HoppF2P1XIe+yLKtLn78bLhg==

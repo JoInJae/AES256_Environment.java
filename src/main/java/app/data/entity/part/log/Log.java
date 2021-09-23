@@ -24,8 +24,11 @@ public class Log extends Entity_Log {
     @Column(name = "game_rawdata", columnDefinition = "LONGTEXT")
     private String rawdata;
 
-    @Column(name = "game_level", columnDefinition = "LONG", nullable = false)
-    private Long level;
+    @Column(name = "game_level_present", columnDefinition = "LONG", nullable = false)
+    private Long present;
+
+    @Column(name = "game_level_next", columnDefinition = "LONG", nullable = false)
+    private Long next;
 
     @AttributeOverrides({
             @AttributeOverride(name = "score_1", column = @Column(name = "game_score_acquired", columnDefinition = "FLOAT", nullable = false)),
@@ -39,10 +42,11 @@ public class Log extends Entity_Log {
     private User user;
 
     @Builder
-    public Log(Wonju wonju, String rawdata, Long level, Float score_acquired, Float score_total, User user) {
+    public Log(Wonju wonju, String rawdata, Long present, Long next, Float score_acquired, Float score_total, User user) {
         this.wonju = wonju;
         this.rawdata = rawdata;
-        this.level = level;
+        this.present = present;
+        this.next = next;
         this.score = new Score(score_acquired, score_total);
         this.user = user;
     }
