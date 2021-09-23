@@ -1,7 +1,7 @@
-package app.exception;
+package app.config.exception;
 
 import app.data.response.type.Response;
-import app.exception.basement.BaseException;
+import app.config.exception.basement.BaseException;
 
 public class InvalidAuthorizationException extends BaseException {
 

@@ -1,7 +1,7 @@
 package app.mvc.controller.basement;
 
 import app.data.response.type.Response;
-import app.exception.basement.BaseException;
+import app.config.exception.basement.BaseException;
 
 public abstract class Base_Controller<Service>{
 

@@ -1,4 +1,4 @@
-package app.exception.basement;
+package app.config.exception.basement;
 
 import app.data.response.type.Response;
 import lombok.Getter;

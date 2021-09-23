@@ -19,6 +19,9 @@ public enum Response {
 
     FAIL_PARAMETER("0010", "잘못된 파라미터"),
 
+    WRONG_ENUM_CODE("0020", "잘못된 코드 값"),
+    WRONG_ENUM_NAME("0021", "잘못된 이름 값"),
+    
     ERROR_ENTITY("0101", "ENTITY 에러, 계속 문제가 발생하면 연락주세요"),
     ERROR_SQL("0102", "SQL 에러, 계속 문제가 발생하면 연락주세요");
 

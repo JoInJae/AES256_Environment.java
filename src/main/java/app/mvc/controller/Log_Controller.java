@@ -35,6 +35,13 @@ public class Log_Controller extends Base_Controller<Log_Service> {
 
     }
 
+    @PostMapping("/log/put")
+    public ResponseEntity<Message> log_put(@RequestBody LogDTO.Basic param, @RequestAttribute("uuid")String uuid){
+
+        return ResponseEntity.ok(service.log_put(param, uuid));
+
+    }
+
     //마이페이지 정보
     @PostMapping("/stat/analysis/get")
     public ResponseEntity<Message> stat_get(@RequestAttribute("uuid") String uuid ){

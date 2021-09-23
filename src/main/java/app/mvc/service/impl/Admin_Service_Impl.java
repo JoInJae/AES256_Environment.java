@@ -6,7 +6,7 @@ import app.data.response.Message;
 import app.data.response.MessageB;
 import app.data.response.type.Response;
 import app.data.type.Token;
-import app.exception.InvalidAuthorizationException;
+import app.config.exception.InvalidAuthorizationException;
 import app.mvc.repository.Admin_Custom_Repository;
 import app.mvc.service.Admin_Service;
 import app.mvc.service.basement.Base_Service;

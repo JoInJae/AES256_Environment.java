@@ -4,7 +4,7 @@ import app.data.type.Token;
 import app.data.environment.JWT_Environment;
 
 import app.data.response.type.Response;
-import app.exception.InvalidAuthorizationException;
+import app.config.exception.InvalidAuthorizationException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;

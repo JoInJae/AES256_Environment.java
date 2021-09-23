@@ -1,19 +1,41 @@
 package app.data.request;
 
+import app.data.entity.part.log.Log;
 import app.data.entity.part.log.LogV1;
 import app.data.entity.part.log.LogV2;
 import app.data.entity.part.log.LogV3;
 import app.data.entity.part.user.User;
+import app.data.type.Wonju;
 import com.google.gson.Gson;
 import lombok.*;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class LogDTO {
+
+    @AllArgsConstructor
+    @Getter
+    public static class Basic{
+
+        private List<Map<String, Object>> rawdata;
+        private Wonju name;
+        private Long level;
+        private Float acquiredScore;
+        private Float totalScore;
+
+        public Log toEntity(User user){
+
+            return Log.builder()
+                    .rawdata(new Gson().toJson(rawdata)).user(user)
+                    .wonju(name).level(level).score_acquired(acquiredScore).score_total(totalScore)
+                    .build();
+
+        }
+
+    }
+
+
 
     @AllArgsConstructor
     @Getter

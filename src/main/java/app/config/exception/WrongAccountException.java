@@ -1,4 +1,4 @@
-package app.exception;
+package app.config.exception;
 
 import app.data.response.type.Response;
 import lombok.Getter;

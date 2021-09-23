@@ -1,10 +1,9 @@
 package app.mvc.controller.exception;
 
 import app.data.response.Message;
-import app.exception.InvalidAuthorizationException;
-import app.exception.WrongAccountException;
-import app.exception.basement.BaseException;
-import org.springframework.http.HttpStatus;
+import app.config.exception.InvalidAuthorizationException;
+import app.config.exception.WrongAccountException;
+import app.config.exception.basement.BaseException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

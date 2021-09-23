@@ -1,8 +1,8 @@
-package app.interceptor;
+package app.config.interceptor;
 
 import app.data.response.type.Response;
 import app.data.type.Token;
-import app.exception.InvalidAuthorizationException;
+import app.config.exception.InvalidAuthorizationException;
 import app.mvc.repository.Admin_Custom_Repository;
 import app.mvc.repository.User_Custom_Repository;
 import app.utility.JWT;

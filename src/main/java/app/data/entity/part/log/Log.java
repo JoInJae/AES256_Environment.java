@@ -1,8 +1,10 @@
 package app.data.entity.part.log;
 
 import app.data.entity.basement.Entity_Log;
+import app.data.entity.converter.Wonju_Converter;
 import app.data.entity.embeded.Score;
 import app.data.entity.part.user.User;
+import app.data.type.Wonju;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +17,9 @@ import javax.persistence.*;
 })
 public class Log extends Entity_Log {
 
-    @Column(name = "game_name", columnDefinition = "VARCHAR(15)", nullable = false)
-    private String name;
+    @Column(name = "game_code", columnDefinition = "CHAR(2)", nullable = false)
+    @Convert(converter = Wonju_Converter.class)
+    private Wonju wonju;
 
     @Column(name = "game_rawdata", columnDefinition = "LONGTEXT")
     private String rawdata;
@@ -36,8 +39,8 @@ public class Log extends Entity_Log {
     private User user;
 
     @Builder
-    public Log(String name, String rawdata, Long level, Long count_correct, Long count_total, Float score_acquired, Float score_total, Long limit, Long time, User user) {
-        this.name = name;
+    public Log(Wonju wonju, String rawdata, Long level, Float score_acquired, Float score_total, User user) {
+        this.wonju = wonju;
         this.rawdata = rawdata;
         this.level = level;
         this.score = new Score(score_acquired, score_total);
