@@ -3,14 +3,14 @@ package app.mvc.controller;
 import app.data.request.AdminDTO;
 import app.data.response.Message;
 import app.data.response.MessageB;
+import app.data.type.Production;
 import app.mvc.controller.basement.Base_Controller;
 import app.mvc.service.Admin_Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @RequestMapping(value = "/admin", method = RequestMethod.POST)
 @RestController
@@ -28,7 +28,7 @@ public class Admin_Controller extends Base_Controller<Admin_Service> {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Message> user_login(@RequestBody AdminDTO.Login_Check param, HttpServletResponse response){
+    public ResponseEntity<Message> login(@RequestBody AdminDTO.Login_Check param, HttpServletResponse response){
 
         return ResponseEntity.ok(service.admin_login(param, response));
 
@@ -42,14 +42,21 @@ public class Admin_Controller extends Base_Controller<Admin_Service> {
     }
 
     @PostMapping("/get/main/info")
-    public ResponseEntity<Message> main_info_get(){
+    public ResponseEntity<Message> main_info_get(@RequestParam(name = "production")Production production){
 
-        String[][] data = new String[][]{
-                {"남성 회원", "50"},
-                {"여성 회원", "50"}
-        };
+        return ResponseEntity.ok(MessageB.ok(service.main_info_get(production)));
 
-        return ResponseEntity.ok(MessageB.ok(data));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Message> logout(@CookieValue(value="refresh") Cookie refresh, HttpServletResponse response){
+
+        refresh.setValue(null);
+        refresh.setMaxAge(0);
+
+        response.addCookie(refresh);
+
+        return ResponseEntity.ok(Message.ok());
 
     }
 

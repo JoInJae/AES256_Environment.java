@@ -3,9 +3,10 @@ package app.data.request;
 import app.data.entity.part.admin.Admin;
 import app.data.entity.part.admin.Admin_Account;
 import app.data.type.Production;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminDTO {
 
@@ -42,6 +43,23 @@ public class AdminDTO {
     @Getter
     public static class Login_Result{
         private String access;
+    }
+
+
+    @NoArgsConstructor
+    @Getter
+    public static class Main_Page_Result{
+
+        private final List<List<String>> gender = new ArrayList<>();
+        private final List<List<String>> usage = new ArrayList<>();
+        private final List<List<String>> time_sum = new ArrayList<>();
+        private final List<List<String>> time_day = new ArrayList<>();
+
+        @Setter
+        private String total_member;
+        @Setter
+        private String new_member;
+
     }
 
 }

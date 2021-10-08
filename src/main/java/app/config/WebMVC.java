@@ -19,7 +19,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
-        registry.addInterceptor(authentication).addPathPatterns("/log/**","/game/get/info","/user/modify","/user/get/info","/user/password/*","/user/reissue", "/stat/analysis/get","/admin/test");
+        registry.addInterceptor(authentication)
+                .addPathPatterns("/log/**","/game/get/info","/user/modify","/user/get/info", "/user/get/all", "/user/password/*","/user/reissue", "/stat/analysis/get","/admin/get/main/info","/admin/logout");
 
     }
 
@@ -27,7 +28,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedMethods("POST","OPTIONS")
-                .allowedOrigins("http://localhost:8080","https://xradmin.super-brain.co.kr", "null")
+                .allowedOrigins("http://localhost:8080","https://xradmin.super-brain.co.kr")
+                .exposedHeaders("Authorization")
                 .allowCredentials(true);
     }
 

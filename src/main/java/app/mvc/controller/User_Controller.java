@@ -43,7 +43,6 @@ public class User_Controller extends Base_Controller<User_Service> {
 
     }
 
-
     @PostMapping("/get/all")
     public ResponseEntity<Message> user_get_all(@RequestParam(name = "production", required = false) Production production){
 

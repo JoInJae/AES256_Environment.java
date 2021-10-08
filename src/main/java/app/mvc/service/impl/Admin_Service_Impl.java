@@ -5,6 +5,7 @@ import app.data.request.AdminDTO;
 import app.data.response.Message;
 import app.data.response.MessageB;
 import app.data.response.type.Response;
+import app.data.type.Production;
 import app.data.type.Token;
 import app.config.exception.InvalidAuthorizationException;
 import app.mvc.repository.Admin_Custom_Repository;
@@ -82,6 +83,13 @@ public class Admin_Service_Impl extends Base_Service<Admin_Custom_Repository> im
         String uuid = jwt.get(refresh).get("uuid").toString();
 
         return MessageB.ok(AdminDTO.Login_Result.builder().access(jwt.create(Token.ACCESS, "admin", uuid)).build());
+
+    }
+
+    @Override
+    public MessageB main_info_get(Production production) {
+
+        return MessageB.ok(repository.main_info_get(production));
 
     }
 

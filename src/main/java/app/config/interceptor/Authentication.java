@@ -10,6 +10,8 @@ import io.jsonwebtoken.Claims;
 import lombok.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
@@ -30,8 +32,13 @@ public class Authentication implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
 
+        if(request.getMethod().equals("OPTIONS")){
+            return true;
+        }
+
         String authorization = request.getHeader("Authorization");
 
+        System.out.println(authorization);
         if(authorization == null || !(authorization.startsWith("Bearer "))) throw new InvalidAuthorizationException(Response.FAIL_TOKEN_NOT_EXIST);
 
         String token = authorization.replace("Bearer ","");
@@ -47,7 +54,6 @@ public class Authentication implements HandlerInterceptor {
         if(subject.equals("user")){
 
             is_account = user_repository.user_account_get(uuid);
-
 
 
         }else if(subject.equals("admin")){
