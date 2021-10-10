@@ -38,7 +38,6 @@ public class Authentication implements HandlerInterceptor {
 
         String authorization = request.getHeader("Authorization");
 
-        System.out.println(authorization);
         if(authorization == null || !(authorization.startsWith("Bearer "))) throw new InvalidAuthorizationException(Response.FAIL_TOKEN_NOT_EXIST);
 
         String token = authorization.replace("Bearer ","");

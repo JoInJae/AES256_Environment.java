@@ -164,12 +164,12 @@ public class Log_Custom_Repository extends Base_Repository {
         return query.from(qLog)
                 .select(Projections.constructor(LogDTO.Game_Info.class,
                         qLog.wonju, qLog.next))
-                .orderBy(qLog.createTime.desc())
-                .where(qLog.user.uuid.eq(uuid).and(qLog.createTime.in(JPAExpressions
-                        .select(qLog.createTime.max())
+                .orderBy(qLog.wonju.asc())
+                .where(qLog.idx.in(JPAExpressions
+                        .select(qLog.idx.max())
                         .from(qLog)
                         .groupBy(qLog.wonju)
-                        .where(qLog.user.uuid.eq(uuid)))))
+                        .where(qLog.user.uuid.eq(uuid))))
                 .fetch();
 
     }
