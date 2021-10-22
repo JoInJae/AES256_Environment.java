@@ -2,8 +2,6 @@ package app.mvc.controller;
 
 import app.data.request.AdminDTO;
 import app.data.response.Message;
-import app.data.response.MessageB;
-import app.data.type.Production;
 import app.mvc.controller.basement.Base_Controller;
 import app.mvc.service.Admin_Service;
 import org.springframework.http.ResponseEntity;
@@ -42,9 +40,9 @@ public class Admin_Controller extends Base_Controller<Admin_Service> {
     }
 
     @PostMapping("/get/main/info")
-    public ResponseEntity<Message> main_info_get(@RequestParam(name = "production")Production production){
+    public ResponseEntity<Message> main_info_get(){
 
-        return ResponseEntity.ok(MessageB.ok(service.main_info_get(production)));
+        return ResponseEntity.ok(service.main_info_get());
 
     }
 
@@ -59,5 +57,6 @@ public class Admin_Controller extends Base_Controller<Admin_Service> {
         return ResponseEntity.ok(Message.ok());
 
     }
+
 
 }

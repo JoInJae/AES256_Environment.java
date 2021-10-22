@@ -4,8 +4,7 @@ import app.data.entity.part.admin.Admin;
 import app.data.entity.part.admin.Admin_Account;
 import app.data.type.Production;
 import lombok.*;
-
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 public class AdminDTO {
@@ -45,21 +44,54 @@ public class AdminDTO {
         private String access;
     }
 
-
-    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
     @Getter
+    @ToString
     public static class Main_Page_Result{
 
-        private final List<List<String>> gender = new ArrayList<>();
-        private final List<List<String>> usage = new ArrayList<>();
-        private final List<List<String>> time_sum = new ArrayList<>();
-        private final List<List<String>> time_day = new ArrayList<>();
-
-        @Setter
-        private String total_member;
-        @Setter
-        private String new_member;
+        private User user;
+        private List<AdminDTO.Access> access;
+        private List<AdminDTO.Basic> accumulations;
+        private List<AdminDTO.TimeBy> timeBy;
 
     }
+
+    @AllArgsConstructor
+    @Getter
+    public static class Basic{
+
+        private String title;
+        private Long number;
+
+    }
+
+    @AllArgsConstructor
+    @Getter
+    public static class User{
+
+        private Long total;
+        private Long new_user;
+        private Long male;
+        private Long female;
+
+    }
+    @AllArgsConstructor
+    @Getter
+    public static class Access{
+        private LocalDate date;
+        private Integer connection;
+        private Integer new_user;
+    }
+
+    @AllArgsConstructor
+    @Getter
+    public static class TimeBy{
+        private Integer hour;
+        private String  name;
+        private Integer run;
+    }
+
+
 
 }

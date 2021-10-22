@@ -10,4 +10,5 @@ public abstract class Base_Repository {
         this.query = query;
     }
 
+
 }

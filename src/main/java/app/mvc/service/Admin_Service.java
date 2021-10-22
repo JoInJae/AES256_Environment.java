@@ -15,5 +15,5 @@ public interface Admin_Service {
 
     Message admin_reissue(String value);
 
-    MessageB main_info_get(Production production);
+    MessageB main_info_get();
 }

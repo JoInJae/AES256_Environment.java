@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -87,9 +88,21 @@ public class Admin_Service_Impl extends Base_Service<Admin_Custom_Repository> im
     }
 
     @Override
-    public MessageB main_info_get(Production production) {
+    public MessageB main_info_get() {
 
-        return MessageB.ok(repository.main_info_get(production));
+        AdminDTO.User user = repository.get_user_info();
+        List<AdminDTO.Access> access = repository.get_access_info();
+        List<AdminDTO.Basic> accumulation = repository.get_time_sum_info();
+        List<AdminDTO.TimeBy> timeBy = repository.get_time_by_info();
+
+        AdminDTO.Main_Page_Result result = AdminDTO.Main_Page_Result.builder()
+                .user(user).access(access).accumulations(accumulation).timeBy(timeBy)
+                .build();
+
+        System.out.println(result);
+
+
+        return MessageB.ok(result);
 
     }
 
