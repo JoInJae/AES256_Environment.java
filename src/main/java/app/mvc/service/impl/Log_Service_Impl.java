@@ -78,6 +78,8 @@ public class Log_Service_Impl extends Base_Service<Log_Custom_Repository> implem
 
     }
 
+
+
     @Transactional
     @Override
     public Message log_put(LogDTO.Basic param, String uuid) {
@@ -185,6 +187,13 @@ public class Log_Service_Impl extends Base_Service<Log_Custom_Repository> implem
     public MessageB<List<LogDTO.LogHistory>> log_list_get(String uuid) {
 
         return MessageB.ok(repository.log_list_get(uuid));
+
+    }
+
+    @Override
+    public MessageB<String> log_get_last_data(LogDTO.LastData param, String uuid) {
+
+        return MessageB.ok(repository.log_get_last_data(param.getName(), uuid));
 
     }
 

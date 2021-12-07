@@ -1,11 +1,16 @@
 package app.mvc.controller;
 
+import app.config.exception.basement.BaseException;
+import app.data.response.type.Response;
 import app.mvc.controller.basement.Base_Controller;
 import app.data.request.LogDTO;
 import app.data.response.Message;
 import app.mvc.service.Log_Service;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 public class Log_Controller extends Base_Controller<Log_Service> {
@@ -32,6 +37,17 @@ public class Log_Controller extends Base_Controller<Log_Service> {
     public ResponseEntity<Message> log_v3_put(@RequestBody LogDTO.V3 param, @RequestAttribute("uuid")String uuid){
 
         return ResponseEntity.ok(service.log_put(param, uuid));
+
+    }
+
+    @PostMapping("/log/get/last/data")
+    public ResponseEntity<Message> log_get_last_data(@Valid @RequestBody LogDTO.LastData param, BindingResult bindingResult, @RequestAttribute("uuid")String uuid){
+
+        if(bindingResult.hasErrors()){
+            throw new BaseException(Response.FAIL_PARAMETER);
+        }
+
+        return ResponseEntity.ok(service.log_get_last_data(param, uuid));
 
     }
 

@@ -185,4 +185,16 @@ public class Log_Custom_Repository extends Base_Repository {
                 .fetch();
 
     }
+
+    public String log_get_last_data(String name, String uuid) {
+
+        if("family".equals(name)){
+            return query.from(qLogV2).select(qLogV2.rawdata).where(qLogV2.name.eq(name).and(qLogV2.user.uuid.eq(uuid))).orderBy(qLogV2.idx.desc()).fetchFirst();
+        }else if("shopping".equals(name)){
+            return query.from(qLogV3).select(qLogV3.rawdata).where(qLogV3.name.eq(name).and(qLogV3.user.uuid.eq(uuid))).orderBy(qLogV3.idx.desc()).fetchFirst();
+        }else{
+            return query.from(qLogV1).select(qLogV1.rawdata).where(qLogV1.name.eq(name).and(qLogV1.user.uuid.eq(uuid))).orderBy(qLogV1.idx.desc()).fetchFirst();
+        }
+
+    }
 }

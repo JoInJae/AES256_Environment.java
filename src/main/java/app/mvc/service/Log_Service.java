@@ -14,4 +14,6 @@ public interface Log_Service {
     MessageB stat_get(String uuid);
     MessageB game_info_get(String uuid);
     MessageB log_list_get(String uuid);
+
+    MessageB log_get_last_data(LogDTO.LastData param, String uuid);
 }

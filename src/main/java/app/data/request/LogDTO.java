@@ -9,6 +9,7 @@ import app.data.type.Wonju;
 import com.google.gson.Gson;
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -105,6 +106,16 @@ public class LogDTO {
                     .build();
 
         }
+
+    }
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    public static class LastData{
+
+        @NotBlank
+        private String name;
 
     }
 

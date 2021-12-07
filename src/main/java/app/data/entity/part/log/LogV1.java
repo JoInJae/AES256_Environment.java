@@ -27,8 +27,8 @@ public class LogV1 extends Entity_Log {
     private Long level;
 
     @AttributeOverrides({
-            @AttributeOverride(name = "score_1", column = @Column(name = "game_score_acquired", columnDefinition = "FLOAT", nullable = false)),
-            @AttributeOverride(name = "score_2", column = @Column(name = "game_score_total", columnDefinition = "FLOAT", nullable = false)),
+            @AttributeOverride(name = "score_1", column = @Column(name = "game_score_acquired", columnDefinition = "FLOAT")),
+            @AttributeOverride(name = "score_2", column = @Column(name = "game_score_total", columnDefinition = "FLOAT")),
     })
     @Embedded
     private Score score;
